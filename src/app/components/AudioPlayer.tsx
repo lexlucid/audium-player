@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import * as slider from "@/components/ui/slider"
 import { PlayIcon } from "./icons/PlayIcon"
 import { PauseIcon } from "./icons/PauseIcon"
-import { PlaybackSpeedIcon } from "./icons/PlaybackSpeedIcon"
 import { SlSpeedometer } from "react-icons/sl";
 
 
@@ -69,22 +68,6 @@ export function AudioPlayer() {
             <p className="text-sm text-gray-500 dark:text-gray-400">Text-to-Speech</p>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <Button
-            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            size="icon"
-            variant="ghost"
-          >
-            <ShuffleIcon className="w-5 h-5" />
-          </Button>
-          <Button
-            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            size="icon"
-            variant="ghost"
-          >
-            <RepeatIcon className="w-5 h-5" />
-          </Button>
-        </div>
       </div>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
@@ -96,35 +79,34 @@ export function AudioPlayer() {
             <RewindIcon className="w-5 h-5" />
           </Button>
           <Button
-            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            size="icon"
+            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 rounded-full"
+            size="lg"
             variant="ghost"
             onClick={togglePlayPause}
           >
-            { isPlaying ? <PauseIcon className="w-5 h-5" /> : <PlayIcon className="w-5 h-5" /> }
+            { isPlaying ? <PauseIcon className="w-8 h-8" /> : <PlayIcon className="w-8 h-8" /> }
             
           </Button> 
           <Button
-            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-lg"
             size="icon"
-            variant="ghost"
-          >
-            <SlSpeedometer className="w-5 h-5" />
-          </Button>
+            variant="ghost">
+                2.5x
+            </Button>
         </div>
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
             <Button
                 className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                 size="icon"
                 variant="ghost"
             >
-                <Volume2Icon className="w-5 h-5" />
+                <SlSpeedometer className="w-5 h-5" />
             </Button>
             <slider.Slider
                 className="w-20 [&>span:first-child]:h-1 [&>span:first-child]:bg-gray-300 [&_[role=slider]]:bg-gray-900 [&_[role=slider]]:w-3 [&_[role=slider]]:h-3 [&_[role=slider]]:border-0 [&>span:first-child_span]:bg-gray-900 [&_[role=slider]:focus-visible]:ring-0 [&_[role=slider]:focus-visible]:ring-offset-0 [&_[role=slider]:focus-visible]:scale-105 [&_[role=slider]:focus-visible]:transition-transform dark:[&>span:first-child]:bg-gray-700 dark:[&_[role=slider]]:bg-gray-50 dark:[&>span:first-child_span]:bg-gray-50"
-                defaultValue={[0]}
+                defaultValue={[50]}
             />
-        </div>
+        </div> */}
       </div>
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-500 dark:text-gray-400">{calculateTime(currentTime)}</span>
@@ -141,50 +123,6 @@ export function AudioPlayer() {
   )
 }
 
-function ForwardIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="15 17 20 12 15 7" />
-      <path d="M4 18v-2a4 4 0 0 1 4-4h12" />
-    </svg>
-  )
-}
-
-
-
-
-function RepeatIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m17 2 4 4-4 4" />
-      <path d="M3 11v-1a4 4 0 0 1 4-4h14" />
-      <path d="m7 22-4-4 4-4" />
-      <path d="M21 13v1a4 4 0 0 1-4 4H3" />
-    </svg>
-  )
-}
 
 
 function RewindIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
@@ -208,28 +146,7 @@ function RewindIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 }
 
 
-function ShuffleIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22" />
-      <path d="m18 2 4 4-4 4" />
-      <path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2" />
-      <path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8" />
-      <path d="m18 14 4 4-4 4" />
-    </svg>
-  )
-}
+
 
 
 function Volume2Icon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
